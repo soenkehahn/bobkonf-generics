@@ -18,3 +18,4 @@ executables:
       - warp
       - logging-facade
       - getopt-generics
+      - servant-server

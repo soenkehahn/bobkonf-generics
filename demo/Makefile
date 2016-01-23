@@ -4,8 +4,9 @@ compile: demo.cabal client/demo-client.cabal
 start:
 	stack exec -- demo
 
-setup: client/demo-client.cabal
+setup: demo.cabal client/demo-client.cabal
 	stack setup
+	stack build --only-dependencies
 	(cd client && stack setup)
 	(cd client && stack build --only-dependencies)
 

@@ -29,6 +29,7 @@ executable demo-server
     , warp
     , logging-facade
     , getopt-generics
+    , servant-server
   other-modules:
       DemoADT
   default-language: Haskell2010
