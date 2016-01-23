@@ -1,0 +1,21 @@
+-- This file has been generated from package.yaml by hpack version 0.8.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           demo-client
+version:        0.0.0
+build-type:     Simple
+cabal-version:  >= 1.10
+
+executable demo-client
+  main-is: Main.hs
+  hs-source-dirs:
+      ./.
+    , ../src
+  build-depends:
+      base
+    , generics-eot
+    , reflex-dom
+  other-modules:
+      DemoADT
+  default-language: Haskell2010

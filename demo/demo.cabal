@@ -1,0 +1,34 @@
+-- This file has been generated from package.yaml by hpack version 0.8.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           demo
+version:        0.0.0
+build-type:     Simple
+cabal-version:  >= 1.10
+
+executable demo-cli
+  main-is: demo-cli.hs
+  hs-source-dirs:
+      src
+  build-depends:
+      base == 4.*
+    , getopt-generics
+  other-modules:
+      DemoADT
+      Main
+  default-language: Haskell2010
+
+executable demo-server
+  main-is: Main.hs
+  hs-source-dirs:
+      src
+  build-depends:
+      base == 4.*
+    , wai-ghcjs
+    , warp
+    , logging-facade
+    , getopt-generics
+  other-modules:
+      DemoADT
+  default-language: Haskell2010

@@ -1,0 +1,12 @@
+name: demo-client
+
+executables:
+  demo-client:
+    main: Main.hs
+    source-dirs:
+      - ./.
+      - ../src
+    dependencies:
+      - base
+      - generics-eot
+      - reflex-dom

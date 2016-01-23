@@ -1,0 +1,20 @@
+dependencies:
+  - base == 4.*
+
+executables:
+  demo-cli:
+    main: demo-cli.hs
+    source-dirs:
+      - src
+    dependencies:
+      - getopt-generics
+
+  demo-server:
+    main: Main.hs
+    source-dirs:
+      - src
+    dependencies:
+      - wai-ghcjs
+      - warp
+      - logging-facade
+      - getopt-generics

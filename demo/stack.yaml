@@ -1,0 +1,16 @@
+resolver: nightly-2016-01-23
+packages:
+  - '.'
+  - location:
+      git: https://github.com/soenkehahn/wai-ghcjs
+      commit: 9d378f4
+    extra-dep: true
+#   - location:
+#       git: https://github.com/haskell-servant/servant
+#       commit: d2d25954c3bbd04a9bddadf8d3abd8a57488aa33
+#     subdirs:
+#       - servant
+#       - servant-server
+#     extra-dep: true
+extra-deps: []
+#  - http-api-data-0.1.1.1
