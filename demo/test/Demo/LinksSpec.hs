@@ -16,4 +16,4 @@ spec = do
       it "contains a link to /swagger" $ do
         r <- get "/"
         liftIO $
-          cs (simpleBody r) `shouldContain` ("href=\"/swagger\"" :: String)
+          cs (simpleBody r) `shouldContain` ("href=\"/swagger/\"" :: String)

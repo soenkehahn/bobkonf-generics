@@ -29,7 +29,7 @@ mkLinks proxy = unindent [i|
 |]
   where
     links :: String
-    links = concatMap (\ u -> [i|<a href="/#{u}">#{u}</a><br/>\n|])
+    links = concatMap (\ u -> [i|<a href="/#{u}/">#{u}</a><br/>\n|])
       (mkUrls proxy)
 
 class MkPaths api where
