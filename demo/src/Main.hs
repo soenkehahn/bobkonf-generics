@@ -1,15 +1,20 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE ViewPatterns #-}
 
+import           Control.Monad.Trans.Except
 import           Data.Maybe
 import           Network.Wai
-import           Network.Wai.Ghcjs
 import           Network.Wai.Handler.Warp
 import           Servant
 import qualified System.Logging.Facade as Log
 import           WithCli
+
+import           Demo.HtmlForm
+import           Demo.JSON ()
+import           Demo.Swagger
 
 main :: IO ()
 main = withCli $ \ (fromMaybe 8080 -> port) -> do
@@ -22,7 +27,8 @@ main = withCli $ \ (fromMaybe 8080 -> port) -> do
 
 type DemoApi =
   "a" :> HtmlFormApi :<|>
-  "b" :> Get '[PlainText] String
+  "b" :> SwaggerApi :<|>
+  Get '[] ()
 
 demoApi :: Proxy DemoApi
 demoApi = Proxy
@@ -32,16 +38,7 @@ demoApp = do
   htmlFormApp <- mkHtmlFormApp
   return $
     htmlFormApp :<|>
-    return ("huhu" :: String)
-
-type HtmlFormApi = Raw
-
-mkHtmlFormApp :: IO Application
-mkHtmlFormApp = mkDevelopmentApp $ BuildConfig {
-  mainFile = "Main.hs",
-  customIndexFile = Just "static/index.html",
-  sourceDirs = [".", "../src"],
-  projectDir = "client",
-  projectExec = Stack,
-  buildDir = "_build"
-}
+    swaggerApp "/b" :<|>
+    (throwE err404 {
+      errBody = "404 - not found"
+    })

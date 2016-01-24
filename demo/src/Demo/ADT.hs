@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 
-module DemoADT where
+module Demo.ADT where
 
 import           GHC.Generics
 

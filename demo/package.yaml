@@ -19,3 +19,5 @@ executables:
       - logging-facade
       - getopt-generics
       - servant-server
+      - swagger
+      - servant-swagger

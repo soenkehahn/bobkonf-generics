@@ -6,9 +6,9 @@ start:
 
 setup: demo.cabal client/demo-client.cabal
 	stack setup
-	stack build --only-dependencies
+	stack build --only-dependencies --haddock
 	(cd client && stack setup)
-	(cd client && stack build --only-dependencies)
+	(cd client && stack build --only-dependencies --haddock)
 
 demo.cabal: package.yaml
 	hpack
