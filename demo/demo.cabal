@@ -13,29 +13,67 @@ executable demo-cli
       src
   build-depends:
       base == 4.*
+    , generics-eot
+    , servant-server
     , getopt-generics
   other-modules:
+      Demo.ADT
+      Demo.Default
       Demo.HtmlForm
+      Demo.JSON
       Demo.Swagger
-      DemoADT
-      Main
+      Run
   default-language: Haskell2010
 
 executable demo-server
-  main-is: Main.hs
+  main-is: demo-server.hs
   hs-source-dirs:
-      src
+      drivers
+    , src
   build-depends:
       base == 4.*
+    , generics-eot
+    , servant-server
     , wai-ghcjs
     , warp
     , logging-facade
+    , wai
     , getopt-generics
-    , servant-server
+    , string-conversions
+    , http-types
+    , transformers
+    , filepath
+    , swagger2
+    , lens
+    , aeson
     , swagger
     , servant-swagger
   other-modules:
+      Demo.ADT
+      Demo.Default
       Demo.HtmlForm
+      Demo.JSON
       Demo.Swagger
-      DemoADT
+      Run
+  default-language: Haskell2010
+
+test-suite spec
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  hs-source-dirs:
+      test
+    , src
+  build-depends:
+      base == 4.*
+    , generics-eot
+    , servant-server
+    , hspec
+  other-modules:
+      Demo.DefaultSpec
+      Demo.ADT
+      Demo.Default
+      Demo.HtmlForm
+      Demo.JSON
+      Demo.Swagger
+      Run
   default-language: Haskell2010

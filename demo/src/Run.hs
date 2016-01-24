@@ -4,6 +4,8 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE ViewPatterns #-}
 
+module Run (Run.run) where
+
 import           Control.Monad.Trans.Except
 import           Data.Maybe
 import           Network.Wai
@@ -12,12 +14,13 @@ import           Servant
 import qualified System.Logging.Facade as Log
 import           WithCli
 
+import           Demo.Default
 import           Demo.HtmlForm
 import           Demo.JSON ()
 import           Demo.Swagger
 
-main :: IO ()
-main = withCli $ \ (fromMaybe 8080 -> port) -> do
+run :: IO ()
+run = withCli $ \ (fromMaybe 8080 -> port) -> do
   let settings =
         setPort port $
         setBeforeMainLoop (Log.info ("listening on port " ++ show port)) $
@@ -26,8 +29,9 @@ main = withCli $ \ (fromMaybe 8080 -> port) -> do
   runSettings settings app
 
 type DemoApi =
-  "a" :> HtmlFormApi :<|>
-  "b" :> SwaggerApi :<|>
+  "a" :> DefaultApi :<|>
+  "b" :> HtmlFormApi :<|>
+  "swagger" :> SwaggerApi :<|>
   Get '[] ()
 
 demoApi :: Proxy DemoApi
@@ -37,8 +41,9 @@ demoApp :: IO (Server DemoApi)
 demoApp = do
   htmlFormApp <- mkHtmlFormApp
   return $
+    defaultApp :<|>
     htmlFormApp :<|>
-    swaggerApp "/b" :<|>
+    swaggerApp "/swagger" :<|>
     (throwE err404 {
       errBody = "404 - not found"
     })

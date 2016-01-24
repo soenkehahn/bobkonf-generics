@@ -1,14 +1,14 @@
-compile: demo.cabal client/demo-client.cabal
-	stack build --test --no-run-tests
+build: demo.cabal client/demo-client.cabal
+	stack build --test
 
 start:
 	stack exec -- demo
 
 setup: demo.cabal client/demo-client.cabal
 	stack setup
-	stack build --only-dependencies --haddock
+	stack build --only-dependencies --haddock --test
 	(cd client && stack setup)
-	(cd client && stack build --only-dependencies --haddock)
+	(cd client && stack build --only-dependencies --haddock --test)
 
 demo.cabal: package.yaml
 	hpack

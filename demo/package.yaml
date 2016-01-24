@@ -1,5 +1,7 @@
 dependencies:
   - base == 4.*
+  - generics-eot
+  - servant-server
 
 executables:
   demo-cli:
@@ -10,14 +12,31 @@ executables:
       - getopt-generics
 
   demo-server:
-    main: Main.hs
+    main: demo-server.hs
     source-dirs:
+      - drivers
       - src
     dependencies:
       - wai-ghcjs
       - warp
       - logging-facade
+      - wai
       - getopt-generics
-      - servant-server
+      - string-conversions
+      - http-types
+      - transformers
+      - filepath
+      - swagger2
+      - lens
+      - aeson
       - swagger
       - servant-swagger
+
+tests:
+  spec:
+    main: Spec.hs
+    source-dirs:
+      - test
+      - src
+    dependencies:
+      - hspec
