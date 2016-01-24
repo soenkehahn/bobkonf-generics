@@ -50,5 +50,5 @@ demoApp = do
     defaultApp :<|>
     arbitraryApp :<|>
     htmlFormApp :<|>
-    swaggerApp "/swagger" :<|>
+    swaggerApp :<|>
     return (mkLinks (Proxy :: Proxy DemoApi))

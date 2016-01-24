@@ -9,9 +9,11 @@ module Demo.Swagger (swaggerApp, SwaggerApi) where
 
 import           Control.Lens
 import           Control.Monad.Trans.Except
+import           Data.Aeson
 import           Data.String.Conversions
 import           Data.Swagger
 import           Network.HTTP.Types
+import           Network.Wai
 import           Servant
 import           Servant.Swagger
 import qualified System.Logging.Facade as Log
@@ -20,14 +22,14 @@ import           Demo.ADT
 import           Demo.Default
 
 type SwaggerApi =
-  "swagger.json" :> Get '[JSON] Swagger :<|>
+  "swagger.json" :> Raw :<|>
   "api" :> SimpleApi :<|>
   "swagger-ui" :> Raw :<|>
   Get '[] ()
 
-swaggerApp :: String -> Server SwaggerApi
-swaggerApp base =
-  return (simpleSwaggerSpec base) :<|>
+swaggerApp :: Server SwaggerApi
+swaggerApp =
+  simpleSwaggerSpec :<|>
   simpleApp :<|>
   serveDirectory "static/swagger-ui/dist" :<|>
   swaggerUiRedirect
@@ -36,10 +38,13 @@ swaggerUiRedirect :: ExceptT ServantErr IO ()
 swaggerUiRedirect = redirect $ "./swagger-ui/?url=" ++
     cs (urlEncode False "../swagger.json")
 
-simpleSwaggerSpec :: String -> Swagger
-simpleSwaggerSpec base =
-  basePath .~ Just (base ++ "/api") $
-  toSwagger simpleApi
+simpleSwaggerSpec :: Application
+simpleSwaggerSpec request respond = do
+  let base = rawPathInfo request
+  respond $ responseLBS ok200 [("content-type", "application/json")] $
+    encode $
+      basePath .~ Just (cs base ++ "/../api") $
+      toSwagger simpleApi
 
 instance ToSchema SingleConstructorADT
 
