@@ -32,7 +32,7 @@ main = do
   path <- fromJSString <$> getProp "pathname" location
   case path of
     "/html-form" -> HtmlForm.run
-    "/json" -> Json.run (Proxy :: Proxy DemoADT)
+    "/json" -> Json.run (Proxy :: Proxy DemoADT) (Proxy :: Proxy SingleConstructorADT)
     _ -> do
       mainWidget $ el "div" $ do
         text ("unknown client demo: " ++ path)
