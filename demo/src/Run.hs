@@ -30,7 +30,7 @@ run = withCli $ \ (fromMaybe 8080 -> port) -> do
   runSettings settings app
 
 type DemoApi =
-  "a" :> DefaultApi :<|>
+  "default-value" :> DefaultApi :<|>
   "html-form" :> HtmlFormApi :<|>
   "swagger" :> SwaggerApi :<|>
   Get '[HtmlString] String

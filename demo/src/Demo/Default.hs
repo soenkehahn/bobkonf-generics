@@ -38,6 +38,9 @@ instance Default String where
 instance Default a => Default (Maybe a) where
   def = Just def
 
+instance Default Bool where
+  def = True
+
 -- app
 
 type DefaultApi = GetString
