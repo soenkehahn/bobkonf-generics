@@ -15,9 +15,9 @@ import           WithCli
 
 import           Demo.ADT
 import           Demo.Arbitrary
+import           Demo.Client
 import           Demo.Default
-import           Demo.HtmlForm
-import           Demo.JSON
+import           Demo.JSON ()
 import           Demo.Links
 import           Demo.Swagger
 import           Demo.Utils
