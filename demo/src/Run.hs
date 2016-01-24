@@ -4,7 +4,7 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE ViewPatterns #-}
 
-module Run (Run.run, demoApi, demoApp) where
+module Run (Run.run, demoApi, demoApplication) where
 
 import           Data.Maybe
 import           Network.Wai
@@ -13,6 +13,7 @@ import           Servant
 import qualified System.Logging.Facade as Log
 import           WithCli
 
+import           Demo.Arbitrary
 import           Demo.Default
 import           Demo.HtmlForm
 import           Demo.JSON ()
@@ -26,11 +27,12 @@ run = withCli $ \ (fromMaybe 8080 -> port) -> do
         setPort port $
         setBeforeMainLoop (Log.info ("listening on port " ++ show port)) $
         defaultSettings
-  app :: Application <- serve demoApi <$> demoApp
+  app :: Application <- demoApplication
   runSettings settings app
 
 type DemoApi =
-  "default-value" :> DefaultApi :<|>
+  "default" :> DefaultApi :<|>
+  "arbitrary" :> ArbitraryApi :<|>
   "html-form" :> HtmlFormApi :<|>
   "swagger" :> SwaggerApi :<|>
   Get '[HtmlString] String
@@ -38,11 +40,15 @@ type DemoApi =
 demoApi :: Proxy DemoApi
 demoApi = Proxy
 
+demoApplication :: IO Application
+demoApplication = serve demoApi <$> demoApp
+
 demoApp :: IO (Server DemoApi)
 demoApp = do
   htmlFormApp <- mkHtmlFormApp
   return $
     defaultApp :<|>
+    arbitraryApp :<|>
     htmlFormApp :<|>
     swaggerApp "/swagger" :<|>
     return (mkLinks (Proxy :: Proxy DemoApi))

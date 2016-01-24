@@ -10,3 +10,6 @@ import           Demo.ADT
 
 instance ToJSON SingleConstructorADT
 instance FromJSON SingleConstructorADT
+
+instance ToJSON DemoADT
+instance FromJSON DemoADT

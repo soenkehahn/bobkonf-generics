@@ -12,5 +12,6 @@ packages:
       - servant
       - servant-server
     extra-dep: true
-extra-deps: []
+extra-deps:
+  - basic-sop-0.2.0.0
 #  - http-api-data-0.1.1.1

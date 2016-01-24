@@ -18,6 +18,7 @@ executable demo-cli
     , getopt-generics
   other-modules:
       Demo.ADT
+      Demo.Arbitrary
       Demo.Default
       Demo.HtmlForm
       Demo.JSON
@@ -51,8 +52,10 @@ executable demo-server
     , aeson
     , swagger
     , servant-swagger
+    , basic-sop
   other-modules:
       Demo.ADT
+      Demo.Arbitrary
       Demo.Default
       Demo.HtmlForm
       Demo.JSON
@@ -78,6 +81,7 @@ test-suite spec
       Demo.DefaultSpec
       Demo.LinksSpec
       Demo.ADT
+      Demo.Arbitrary
       Demo.Default
       Demo.HtmlForm
       Demo.JSON
