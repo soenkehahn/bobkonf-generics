@@ -16,6 +16,19 @@ executable demo-client
       base
     , generics-eot
     , reflex-dom
+    , generics-sop
+    , string-conversions
+    , aeson-pretty
   other-modules:
-      DemoADT
+      HtmlForm
+      Json
+      Demo.ADT
+      Demo.Arbitrary
+      Demo.Default
+      Demo.HtmlForm
+      Demo.JSON
+      Demo.Links
+      Demo.Swagger
+      Demo.Utils
+      Run
   default-language: Haskell2010

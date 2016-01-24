@@ -5,10 +5,10 @@ import           Network.Wai
 import           Network.Wai.Ghcjs
 import           Servant
 
-type HtmlFormApi = Raw
+type ClientApi = Raw
 
-mkHtmlFormApp :: IO Application
-mkHtmlFormApp = mkDevelopmentApp $ BuildConfig {
+mkClientApp :: IO Application
+mkClientApp = mkDevelopmentApp $ BuildConfig {
   mainFile = "Main.hs",
   customIndexFile = Just "static/index.html",
   sourceDirs = [".", "../src"],

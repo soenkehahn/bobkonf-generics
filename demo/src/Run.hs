@@ -13,10 +13,11 @@ import           Servant
 import qualified System.Logging.Facade as Log
 import           WithCli
 
+import           Demo.ADT
 import           Demo.Arbitrary
 import           Demo.Default
 import           Demo.HtmlForm
-import           Demo.JSON ()
+import           Demo.JSON
 import           Demo.Links
 import           Demo.Swagger
 import           Demo.Utils
@@ -33,7 +34,8 @@ run = withCli $ \ (fromMaybe 8080 -> port) -> do
 type DemoApi =
   "default" :> DefaultApi :<|>
   "arbitrary" :> ArbitraryApi :<|>
-  "html-form" :> HtmlFormApi :<|>
+  "json" :> ClientApi :<|>
+  "html-form" :> ClientApi :<|>
   "swagger" :> SwaggerApi :<|>
   Get '[HtmlString] String
 
@@ -45,10 +47,18 @@ demoApplication = serve demoApi <$> demoApp
 
 demoApp :: IO (Server DemoApi)
 demoApp = do
-  htmlFormApp <- mkHtmlFormApp
+  clientApp <- mkClientApp
   return $
     defaultApp :<|>
     arbitraryApp :<|>
-    htmlFormApp :<|>
+    clientApp :<|>
+    clientApp :<|>
     swaggerApp :<|>
     return (mkLinks (Proxy :: Proxy DemoApi))
+
+-- default app
+
+type DefaultApi = GetString
+
+defaultApp :: Server DefaultApi
+defaultApp = return $ show (genericDefault :: DemoADT)

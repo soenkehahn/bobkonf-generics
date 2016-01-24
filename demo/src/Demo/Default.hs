@@ -6,10 +6,6 @@
 module Demo.Default where
 
 import           Generics.Eot
-import           Servant
-
-import           Demo.ADT
-import           Demo.Utils
 
 genericDefault :: (HasEot a, EotDefault (Eot a)) => a
 genericDefault = fromEot eotDefault
@@ -41,9 +37,3 @@ instance Default a => Default (Maybe a) where
 instance Default Bool where
   def = True
 
--- app
-
-type DefaultApi = GetString
-
-defaultApp :: Server DefaultApi
-defaultApp = return $ show (genericDefault :: DemoADT)

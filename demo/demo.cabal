@@ -53,6 +53,7 @@ executable demo-server
     , swagger
     , servant-swagger
     , basic-sop
+    , blaze-html
   other-modules:
       Demo.ADT
       Demo.Arbitrary
@@ -78,6 +79,7 @@ test-suite spec
     , hspec
     , hspec-wai
   other-modules:
+      Demo.ArbitrarySpec
       Demo.DefaultSpec
       Demo.LinksSpec
       Demo.ADT
