@@ -9,8 +9,7 @@ import           Generics.Eot
 import           Servant
 
 import           Demo.ADT
-
-type DefaultApi = Get '[PlainText] String
+import           Demo.Utils
 
 genericDefault :: (HasEot a, EotDefault (Eot a)) => a
 genericDefault = fromEot eotDefault
@@ -40,6 +39,8 @@ instance Default a => Default (Maybe a) where
   def = Just def
 
 -- app
+
+type DefaultApi = GetString
 
 defaultApp :: Server DefaultApi
 defaultApp = return $ show (genericDefault :: DemoADT)

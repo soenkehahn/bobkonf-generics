@@ -20,7 +20,7 @@ import           Generics.Eot
 import           Reflex.Dom
 import           Safe
 
-import           DemoADT
+import           Demo.ADT
 
 main :: IO ()
 main = do

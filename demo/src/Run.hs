@@ -4,9 +4,8 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE ViewPatterns #-}
 
-module Run (Run.run) where
+module Run (Run.run, demoApi, demoApp) where
 
-import           Control.Monad.Trans.Except
 import           Data.Maybe
 import           Network.Wai
 import           Network.Wai.Handler.Warp
@@ -17,7 +16,9 @@ import           WithCli
 import           Demo.Default
 import           Demo.HtmlForm
 import           Demo.JSON ()
+import           Demo.Links
 import           Demo.Swagger
+import           Demo.Utils
 
 run :: IO ()
 run = withCli $ \ (fromMaybe 8080 -> port) -> do
@@ -30,9 +31,9 @@ run = withCli $ \ (fromMaybe 8080 -> port) -> do
 
 type DemoApi =
   "a" :> DefaultApi :<|>
-  "b" :> HtmlFormApi :<|>
+  "html-form" :> HtmlFormApi :<|>
   "swagger" :> SwaggerApi :<|>
-  Get '[] ()
+  Get '[HtmlString] String
 
 demoApi :: Proxy DemoApi
 demoApi = Proxy
@@ -44,6 +45,4 @@ demoApp = do
     defaultApp :<|>
     htmlFormApp :<|>
     swaggerApp "/swagger" :<|>
-    (throwE err404 {
-      errBody = "404 - not found"
-    })
+    return (mkLinks (Proxy :: Proxy DemoApi))
