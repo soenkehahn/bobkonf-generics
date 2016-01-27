@@ -1,0 +1,13 @@
+digraph g {
+  GHC [label = "GHC Generics"];
+
+  "generics-sop" -> GHC;
+  "generics-eot" -> GHC;
+  more -> GHC;
+  more [label = "..."];
+
+  data [label = "Typeable and Data"];
+
+  syb -> data;
+  uniplate -> data;
+}

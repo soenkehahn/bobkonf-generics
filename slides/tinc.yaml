@@ -1,0 +1,6 @@
+dependencies:
+  - generics-eot
+  - aeson
+  - getopt-generics
+  - string-conversions
+  - pretty-show

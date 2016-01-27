@@ -1,0 +1,12 @@
+digraph g {
+  rankdir = LR;
+
+  userValue -> eotValue [label = "toEot"];
+  userValue [label = "User \"paula\" 3"];
+  eotValue [label = "Left (\"paula\",(3,()))"];
+
+  eotValue -> userValue [label = "fromEot"];
+
+  User -> EotUser [label = "Eot"];
+  EotUser [label = "Eot User"];
+}
