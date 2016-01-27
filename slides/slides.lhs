@@ -18,11 +18,9 @@ Table of Contents
 
 ---
 
-The source of these slides is a literate haskell file. So we have to have some language pragmas and imports:
-
-> {-# LANGUAGE FlexibleContexts #-}
-> {-# LANGUAGE DeriveGeneric #-}
 > {-# LANGUAGE DeriveAnyClass #-}
+> {-# LANGUAGE DeriveGeneric #-}
+> {-# LANGUAGE FlexibleContexts #-}
 > {-# LANGUAGE InstanceSigs #-}
 > {-# LANGUAGE ScopedTypeVariables #-}
 >
@@ -30,11 +28,13 @@ The source of these slides is a literate haskell file. So we have to have some l
 >
 > module Slides where
 >
-> import Text.Show.Pretty
-> import Generics.Eot
-> import Data.String.Conversions
-> import WithCli
 > import Data.Aeson
+> import Data.Aeson.Encode.Pretty
+> import Data.String.Conversions
+> import Data.Swagger
+> import Generics.Eot
+> import Text.Show.Pretty
+> import WithCli
 > import qualified Data.ByteString.Lazy.Char8 as LBS
 
 ---
@@ -56,7 +56,7 @@ Motivation
 Disclaimer
 ----------
 
-The code in this presentation uses `generics-eot`. But I'm biased, because I wrote it. Everything is equally possible with either `generics-sop` or `GHC Generics`.
+The code in this presentation uses `generics-eot`. But I'm biased, because I wrote it. Everything is equally possible with either `generics-sop` or `GHC Generics` and probably other libraries.
 
 ---
 
@@ -69,18 +69,49 @@ How to use generic functions?
 >     age :: Int
 >   }
 >   | Anonymous
->   deriving (Show, Generic, ToJSON, FromJSON)
+>   deriving (Show, Generic, ToJSON, FromJSON, ToSchema)
 >
 > -- $ >>> LBS.putStrLn $ encode $ User "paula" 3
 > -- {"tag":"User","age":3,"name":"paula"}
 >
-> -- $ >>> let json = "{\"tag\":\"Anonymous\",\"contents\":[]}"
-> -- >>> eitherDecode (cs json) :: Either String User
+> -- $ >>> let x = "{\"tag\":\"Anonymous\",\"contents\":[]}"
+> -- >>> eitherDecode (cs x) :: Either String User
 > -- Right Anonymous
 
 ---
 
-todo: one more example
+> -- $ >>> let proxy = Proxy :: Proxy User
+> -- >>> LBS.putStrLn $ encodePretty $ toSchema proxy
+> -- {
+> --     "minProperties": 1,
+> --     "maxProperties": 1,
+> --     "type": "object",
+> --     "properties": {
+> --         "User": {
+> --             "required": [
+> --                 "name",
+> --                 "age"
+> --             ],
+> --             "type": "object",
+> --             "properties": {
+> --                 "age": {
+> --                     "maximum": 9223372036854775807,
+> --                     "minimum": -9223372036854775808,
+> --                     "type": "integer"
+> --                 },
+> --                 "name": {
+> --                     "type": "string"
+> --                 }
+> --             }
+> --         },
+> --         "Anonymous": {
+> --             "type": "string",
+> --             "enum": [
+> --                 "Anonymous"
+> --             ]
+> --         }
+> --     }
+> -- }
 
 ---
 
@@ -161,7 +192,7 @@ Mapping to the generic representation: typeclass `HasEot`
 > -- >>> fromEot $ Right ()
 > -- Anonymous
 
-End-markers (`()` and `Void`) are needed to unambiguously identify fields. (todo)
+End-markers (`()` and `Void`) are needed to unambiguously identify fields. (todo?)
 
 ---
 

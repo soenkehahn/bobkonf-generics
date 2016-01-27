@@ -4,3 +4,5 @@ dependencies:
   - getopt-generics
   - string-conversions
   - pretty-show
+  - swagger2
+  - aeson-pretty

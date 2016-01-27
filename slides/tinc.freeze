@@ -1,14 +1,34 @@
 dependencies:
+- name: adjunctions
+  version: '4.3'
 - name: aeson
   version: '0.10.0.0'
+- name: aeson-pretty
+  version: '0.7.2'
 - name: attoparsec
   version: '0.13.0.1'
 - name: base-compat
   version: '0.9.0'
 - name: base-orphans
   version: '0.5.0'
+- name: bifunctors
+  version: '5.2'
+- name: case-insensitive
+  version: '1.2.0.5'
+- name: cmdargs
+  version: '0.10.13'
+- name: comonad
+  version: '5'
+- name: contravariant
+  version: '1.4'
+- name: distributive
+  version: '0.5.0.2'
 - name: dlist
   version: '0.7.1.2'
+- name: exceptions
+  version: '0.8.2.1'
+- name: free
+  version: '4.12.4'
 - name: generics-eot
   version: '0.2.1'
 - name: generics-sop
@@ -19,27 +39,57 @@ dependencies:
   version: '1.2.4.0'
 - name: haskell-lexer
   version: '1.0'
+- name: http-media
+  version: '0.6.2'
+- name: kan-extensions
+  version: '5.0.1'
+- name: lens
+  version: '4.13.1'
 - name: markdown-unlit
   version: '0.4.0'
 - name: mtl
   version: '2.2.1'
+- name: network
+  version: '2.6.2.1'
+- name: parallel
+  version: '3.2.1.0'
+- name: prelude-extras
+  version: '0.4.0.3'
 - name: pretty-show
   version: '1.6.9'
 - name: primitive
   version: '0.6.1.0'
+- name: profunctors
+  version: '5.2'
+- name: reflection
+  version: '2.1.1.1'
 - name: scientific
   version: '0.3.4.4'
+- name: semigroupoids
+  version: '5.0.1'
+- name: semigroups
+  version: '0.18.0.1'
+- name: StateVar
+  version: '1.1.0.3'
+- name: stm
+  version: '2.4.4.1'
 - name: string-conversions
   version: '0.4'
+- name: swagger2
+  version: '1.2.1'
 - name: syb
   version: '0.6'
 - name: tagged
   version: '0.8.2'
 - name: text
   version: '1.2.2.0'
+- name: transformers-compat
+  version: '0.5.1.4'
 - name: unordered-containers
   version: '0.2.6.0'
 - name: utf8-string
   version: '1.0.1.1'
 - name: vector
   version: '0.11.0.0'
+- name: void
+  version: '0.7.1'
