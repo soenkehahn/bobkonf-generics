@@ -118,14 +118,14 @@ How to use generic functions?
 How to write generic functions?
 ===============================
 
-Three Ways of DGP
------------------
+Three Kinds of Generic Functions
+--------------------------------
 
 - Consuming (e.g. serialization)
 - Producing (e.g. deserialization)
 - Accessing Meta Information (e.g. creating a JSON schema)
 
-Very often, these three ways are have to be combined.
+Very often, these three kinds are have to be combined.
 
 Consuming and producing relies on an **isomorphic, generic representation**.
 
