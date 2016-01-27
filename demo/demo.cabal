@@ -13,12 +13,36 @@ executable demo-cli
       src
   build-depends:
       base == 4.*
+    , aeson
+    , basic-sop
+    , blaze-html
+    , bytestring
+    , filepath
     , generics-eot
-    , servant-server
+    , generics-sop
     , getopt-generics
+    , hspec
+    , hspec-wai
+    , http-types
+    , interpolate
+    , lens
+    , logging-facade
+    , QuickCheck
+    , servant
+    , servant-server
+    , servant-swagger
+    , string-conversions
+    , swagger
+    , swagger2
+    , transformers
+    , wai
+    , wai-extra
+    , wai-ghcjs
+    , warp
   other-modules:
       Demo.ADT
       Demo.Arbitrary
+      Demo.Client
       Demo.Default
       Demo.HtmlForm
       Demo.JSON
@@ -35,28 +59,36 @@ executable demo-server
     , src
   build-depends:
       base == 4.*
-    , generics-eot
-    , servant-server
-    , wai-ghcjs
-    , warp
-    , logging-facade
-    , wai
-    , getopt-generics
-    , string-conversions
-    , http-types
-    , transformers
-    , filepath
-    , swagger2
-    , interpolate
-    , lens
     , aeson
-    , swagger
-    , servant-swagger
     , basic-sop
     , blaze-html
+    , bytestring
+    , filepath
+    , generics-eot
+    , generics-sop
+    , getopt-generics
+    , hspec
+    , hspec-wai
+    , http-types
+    , interpolate
+    , lens
+    , logging-facade
+    , QuickCheck
+    , servant
+    , servant-server
+    , servant-swagger
+    , string-conversions
+    , swagger
+    , swagger2
+    , transformers
+    , wai
+    , wai-extra
+    , wai-ghcjs
+    , warp
   other-modules:
       Demo.ADT
       Demo.Arbitrary
+      Demo.Client
       Demo.Default
       Demo.HtmlForm
       Demo.JSON
@@ -74,16 +106,39 @@ test-suite spec
     , src
   build-depends:
       base == 4.*
+    , aeson
+    , basic-sop
+    , blaze-html
+    , bytestring
+    , filepath
     , generics-eot
-    , servant-server
+    , generics-sop
+    , getopt-generics
     , hspec
     , hspec-wai
+    , http-types
+    , interpolate
+    , lens
+    , logging-facade
+    , QuickCheck
+    , servant
+    , servant-server
+    , servant-swagger
+    , string-conversions
+    , swagger
+    , swagger2
+    , transformers
+    , wai
+    , wai-extra
+    , wai-ghcjs
+    , warp
   other-modules:
       Demo.ArbitrarySpec
       Demo.DefaultSpec
       Demo.LinksSpec
       Demo.ADT
       Demo.Arbitrary
+      Demo.Client
       Demo.Default
       Demo.HtmlForm
       Demo.JSON

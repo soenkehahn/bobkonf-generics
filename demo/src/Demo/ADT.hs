@@ -6,15 +6,15 @@ module Demo.ADT where
 import           GHC.Generics
 import qualified Generics.SOP
 
-type DemoADT = Person
+type DemoADT = User
 type SingleConstructorADT = Animal
 
-data Person
-  = Person {
+data User
+  = User {
     name :: String,
     age :: Int
   }
-  | Unknown
+  | Anonymous
   deriving (Generic, Show)
 
 instance Generics.SOP.Generic DemoADT

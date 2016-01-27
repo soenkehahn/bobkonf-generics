@@ -2,7 +2,7 @@ build: demo.cabal client/demo-client.cabal
 	stack build --test
 
 start:
-	stack exec -- demo
+	stack exec -- demo-server
 
 setup: demo.cabal client/demo-client.cabal
 	stack setup

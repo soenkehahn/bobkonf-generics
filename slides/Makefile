@@ -1,4 +1,4 @@
-all: slides.pdf check ack
+all: slides.pdf check
 
 ack:
 	! ack-grep -H todo *.lhs

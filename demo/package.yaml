@@ -1,39 +1,43 @@
 dependencies:
   - base == 4.*
+  - aeson
+  - basic-sop
+  - blaze-html
+  - bytestring
+  - filepath
   - generics-eot
+  - generics-sop
+  - getopt-generics
+  - hspec
+  - hspec-wai
+  - http-types
+  - interpolate
+  - lens
+  - logging-facade
+  - QuickCheck
+  - servant
   - servant-server
+  - servant-swagger
+  - string-conversions
+  - swagger
+  - swagger2
+  - transformers
+  - wai
+  - wai-extra
+  - wai-ghcjs
+  - warp
 
 executables:
   demo-cli:
     main: demo-cli.hs
     source-dirs:
       - src
-    dependencies:
-      - getopt-generics
 
   demo-server:
     main: demo-server.hs
     source-dirs:
       - drivers
       - src
-    dependencies:
-      - wai-ghcjs
-      - warp
-      - logging-facade
-      - wai
-      - getopt-generics
-      - string-conversions
-      - http-types
-      - transformers
-      - filepath
-      - swagger2
-      - interpolate
-      - lens
-      - aeson
-      - swagger
-      - servant-swagger
-      - basic-sop
-      - blaze-html
 
 tests:
   spec:
@@ -41,6 +45,3 @@ tests:
     source-dirs:
       - test
       - src
-    dependencies:
-      - hspec
-      - hspec-wai
