@@ -1,7 +1,7 @@
 all: slides.pdf check ack
 
 ack:
-	! ack-grep todo *.lhs
+	! ack-grep -H todo *.lhs
 
 clean:
 	rm -rf slides.pdf slides.pdf

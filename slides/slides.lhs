@@ -189,12 +189,28 @@ Datatype {
 
 ---
 
-Example: `constructorName`
-==========================
+Example: `getConstructorName`
+=======================================
+
+What we want to implement:
+
+``` haskell
+-- | returns the name of the used constructor
+getConstructorName :: a -> String
+```
+
+We start by writing the generic function `eotConstructorName`:
 
 > class EotConstructorName eot where
 >   eotConstructorName :: [String] -> eot -> String
->
+
+---
+
+Example: `getConstructorName`
+==========================
+
+Then we need instances for the different possible generic representations. One for `Either x xs`:
+
 > instance EotConstructorName xs =>
 >   EotConstructorName (Either x xs) where
 >
@@ -205,69 +221,56 @@ Example: `constructorName`
 
 ---
 
-- example:
+Example: `getConstructorName`
+==========================
 
-    - name of used constructor
-
-> nameOfConstructor :: forall a .
->   (HasEot a, EotConstructorName (Eot a)) =>
->   a -> String
-> nameOfConstructor a =
->   eotConstructorName
->     (map constructorName $ constructors $
->        datatype (Proxy :: Proxy a))
->     (toEot a)
-
----
+And one for `Void` to make the compiler happy:
 
 > instance EotConstructorName Void where
 >   eotConstructorName :: [String] -> Void -> String
 >   eotConstructorName _ void =
 >     seq void $ error "shouldn't happen"
->
-> -- $ >>> nameOfConstructor $ User "Paula" 3
+
+---
+
+Example: `getConstructorName`
+==========================
+
+> getConstructorName :: forall a .
+>   (HasEot a, EotConstructorName (Eot a)) =>
+>   a -> String
+> getConstructorName a =
+>   eotConstructorName
+>     (map constructorName $ constructors $
+>        datatype (Proxy :: Proxy a))
+>     (toEot a)
+
+> -- $ >>> getConstructorName $ User "Paula" 3
 > -- "User"
-> -- >>> nameOfConstructor Anonymous
+> -- >>> getConstructorName Anonymous
 > -- "Anonymous"
 
 ---
 
-- comparison with reflection
+DGP is a lot like reflection in object-oriented languages. There are some key differences:
 
-  - ducktyping
-  - nullable types
-  - subtypes
-  - sumtypes
+- nullable types -- libraries using reflection usually need to know, which fields are nullable
+- sumtypes/subtypes -- both pose problems for lots of use-cases, but also sometimes offer interesting possibilities
+- dynamic typing -- makes schema generation difficult
+- ducktyping -- makes it ambiguous which fields are relevant
+- type-level computations -- types of generic functions can depend on the structure of the datatype, e.g. setting default levels for a database table.
 
 ---
 
-- examples: alles in demo!!!
-
-    - default value D
-    - arbitrary values D
-    - json serialization / deserialization D
-    - html forms D
-    - validation
-    - html forms with validation
-    - sql schema
-    - sql inserting + deletion
-    - routes from fieldnames
-    - getopt-generics D
-    - mustache context
-    - mustache example templates
-    - swagger D
-
-    - catamorphisms
-
-- types depending on the structure of the datatype
-
-    - ???
+Demonstration
+-------------
 
 ---
 
 Thank you!
-==========
+----------
 
+- [wiki.haskell.org/Generics](https://wiki.haskell.org/Generics)
 - [hackage.haskell.org/package/generic-deriving](http://hackage.haskell.org/package/generic-deriving)
 - [hackage.haskell.org/package/generics-sop](http://hackage.haskell.org/package/generics-sop)
 - [generics-eot.readthedocs.org/en/latest/](http://generics-eot.readthedocs.org/en/latest/)
