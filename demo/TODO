@@ -1,0 +1,18 @@
+- examples: alles in demo!!!
+
+    - default value D
+    - arbitrary values D
+    - all values
+    - json serialization / deserialization D
+    - html forms D
+    - validation
+    - html forms with validation
+    - sql schema
+    - sql inserting + deletion
+    - routes from fieldnames
+    - getopt-generics D
+    - mustache context
+    - mustache example templates
+    - swagger D
+
+    - catamorphisms
