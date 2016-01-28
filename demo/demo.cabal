@@ -44,7 +44,6 @@ executable demo-cli
       Demo.Arbitrary
       Demo.Client
       Demo.Default
-      Demo.HtmlForm
       Demo.JSON
       Demo.Links
       Demo.Swagger
@@ -90,7 +89,6 @@ executable demo-server
       Demo.Arbitrary
       Demo.Client
       Demo.Default
-      Demo.HtmlForm
       Demo.JSON
       Demo.Links
       Demo.Swagger
@@ -140,7 +138,6 @@ test-suite spec
       Demo.Arbitrary
       Demo.Client
       Demo.Default
-      Demo.HtmlForm
       Demo.JSON
       Demo.Links
       Demo.Swagger

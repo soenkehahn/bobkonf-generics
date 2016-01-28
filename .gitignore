@@ -1,0 +1,7 @@
+slides/.cabal-sandbox
+slides/cabal.sandbox.config
+slides/HasEot.pdf
+slides/relations.pdf
+demo/.stack-work
+demo/client/.stack-work
+demo/_build
