@@ -1,0 +1,8 @@
+- You need to serialize values into a custom format. You could either write the serialization by hand or solve the problem once with DGP.
+- You need to serialize values conforming to custom conventions. DGP could ensure that all your datatypes conform to these conventions.
+- You're writing a quick script and want a decent command line interface without effort. Define an ADT modeling the command line options and get a command line parser for free (with getopt-generics).
+- You're want to develop a quick prototype. You define ADTs that model your domain. DGP now gives you
+    - serialization to JSON (with aeson),
+    - database queries to postgresql (with postgresql-simple-sop),
+    - test-data generation (with basic-sop),
+    - etc.

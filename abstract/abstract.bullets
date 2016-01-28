@@ -1,0 +1,14 @@
+- dgp allows to traverse ADT generically
+- classic example is serialization but it's much more than that
+- GDP in Haskell is special because usually invariants are encoded in the ADTs.
+- the structure is available at the type level
+  -> type level programming
+- introduction to the principles of DGP in Haskell
+- examples of applications
+  - aeson
+  - deepseq
+  - getopt-generics
+  - postgresql
+  - create catamorphisms
+  - html forms for administration
+  - test data generation
