@@ -18,7 +18,7 @@ import           Servant
 import           Servant.Swagger
 import qualified System.Logging.Facade as Log
 
-import           Demo.ADT
+import           Demo.Adt
 import           Demo.Default
 
 type SwaggerApi =

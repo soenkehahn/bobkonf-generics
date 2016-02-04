@@ -13,7 +13,7 @@ import           Servant
 import qualified System.Logging.Facade as Log
 import           WithCli
 
-import           Demo.ADT
+import           Demo.Adt
 import           Demo.AllValues
 import           Demo.Arbitrary
 import           Demo.Client

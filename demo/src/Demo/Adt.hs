@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 
-module Demo.ADT where
+module Demo.Adt where
 
 import           GHC.Generics
 import qualified Generics.SOP

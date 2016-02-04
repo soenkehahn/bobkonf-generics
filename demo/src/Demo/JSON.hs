@@ -7,7 +7,7 @@ module Demo.JSON where
 
 import           Data.Aeson
 
-import           Demo.ADT
+import           Demo.Adt
 
 instance ToJSON SingleConstructorADT
 instance FromJSON SingleConstructorADT

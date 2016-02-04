@@ -44,7 +44,7 @@ executable demo-cli
     , wai-ghcjs
     , warp
   other-modules:
-      Demo.ADT
+      Demo.Adt
       Demo.AllValues
       Demo.Arbitrary
       Demo.Client
@@ -94,7 +94,7 @@ executable demo-server
     , wai-ghcjs
     , warp
   other-modules:
-      Demo.ADT
+      Demo.Adt
       Demo.AllValues
       Demo.Arbitrary
       Demo.Client
@@ -149,7 +149,7 @@ test-suite spec
       Demo.ArbitrarySpec
       Demo.DefaultSpec
       Demo.LinksSpec
-      Demo.ADT
+      Demo.Adt
       Demo.AllValues
       Demo.Arbitrary
       Demo.Client

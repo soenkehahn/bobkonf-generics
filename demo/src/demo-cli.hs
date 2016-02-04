@@ -3,7 +3,7 @@
 
 import           WithCli
 
-import           Demo.ADT
+import           Demo.Adt
 
 main :: IO ()
 main = withCli $ \ (x :: SingleConstructorADT) -> do

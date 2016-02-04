@@ -8,7 +8,7 @@ import           Network.Wai.Test
 import           Test.Hspec hiding (pending)
 import           Test.Hspec.Wai
 
-import           Demo.ADT
+import           Demo.Adt
 import           Run
 
 spec :: Spec

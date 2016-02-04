@@ -1,10 +1,8 @@
-- camelcase adt
-
 - examples: alles in demo!!!
 
     - default value D
     - arbitrary values D
-    - all values
+    - all values D
     - json serialization / deserialization D
     - html forms D
     - validation

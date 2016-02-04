@@ -10,7 +10,7 @@ import           Generics.SOP.Arbitrary
 import           Servant
 import           Test.QuickCheck
 
-import           Demo.ADT
+import           Demo.Adt
 
 type ArbitraryApi =
   Get '[JSON] [Either DemoADT SingleConstructorADT]
