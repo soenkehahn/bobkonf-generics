@@ -12,11 +12,13 @@ executable demo-cli
   hs-source-dirs:
       src
   build-depends:
-      base == 4.*
-    , aeson
+      aeson
+    , base == 4.*
     , basic-sop
     , blaze-html
+    , blaze-markup
     , bytestring
+    , containers
     , filepath
     , generics-eot
     , generics-sop
@@ -27,8 +29,10 @@ executable demo-cli
     , interpolate
     , lens
     , logging-facade
+    , mtl
     , QuickCheck
     , servant
+    , servant-blaze
     , servant-server
     , servant-swagger
     , string-conversions
@@ -41,6 +45,7 @@ executable demo-cli
     , warp
   other-modules:
       Demo.ADT
+      Demo.AllValues
       Demo.Arbitrary
       Demo.Client
       Demo.Default
@@ -57,11 +62,13 @@ executable demo-server
       drivers
     , src
   build-depends:
-      base == 4.*
-    , aeson
+      aeson
+    , base == 4.*
     , basic-sop
     , blaze-html
+    , blaze-markup
     , bytestring
+    , containers
     , filepath
     , generics-eot
     , generics-sop
@@ -72,8 +79,10 @@ executable demo-server
     , interpolate
     , lens
     , logging-facade
+    , mtl
     , QuickCheck
     , servant
+    , servant-blaze
     , servant-server
     , servant-swagger
     , string-conversions
@@ -86,6 +95,7 @@ executable demo-server
     , warp
   other-modules:
       Demo.ADT
+      Demo.AllValues
       Demo.Arbitrary
       Demo.Client
       Demo.Default
@@ -103,11 +113,13 @@ test-suite spec
       test
     , src
   build-depends:
-      base == 4.*
-    , aeson
+      aeson
+    , base == 4.*
     , basic-sop
     , blaze-html
+    , blaze-markup
     , bytestring
+    , containers
     , filepath
     , generics-eot
     , generics-sop
@@ -118,8 +130,10 @@ test-suite spec
     , interpolate
     , lens
     , logging-facade
+    , mtl
     , QuickCheck
     , servant
+    , servant-blaze
     , servant-server
     , servant-swagger
     , string-conversions
@@ -131,10 +145,12 @@ test-suite spec
     , wai-ghcjs
     , warp
   other-modules:
+      Demo.AllValuesSpec
       Demo.ArbitrarySpec
       Demo.DefaultSpec
       Demo.LinksSpec
       Demo.ADT
+      Demo.AllValues
       Demo.Arbitrary
       Demo.Client
       Demo.Default

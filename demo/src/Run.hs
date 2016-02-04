@@ -14,6 +14,7 @@ import qualified System.Logging.Facade as Log
 import           WithCli
 
 import           Demo.ADT
+import           Demo.AllValues
 import           Demo.Arbitrary
 import           Demo.Client
 import           Demo.Default
@@ -34,6 +35,7 @@ run = withCli $ \ (fromMaybe 8080 -> port) -> do
 type DemoApi =
   "default" :> DefaultApi :<|>
   "arbitrary" :> ArbitraryApi :<|>
+  "allValues" :> AllValuesApi :<|>
   "json" :> ClientApi :<|>
   "html-form" :> ClientApi :<|>
   "swagger" :> SwaggerApi :<|>
@@ -51,6 +53,7 @@ demoApp = do
   return $
     defaultApp :<|>
     arbitraryApp :<|>
+    allValuesApp :<|>
     clientApp :<|>
     clientApp :<|>
     swaggerApp :<|>

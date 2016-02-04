@@ -1,9 +1,11 @@
 dependencies:
-  - base == 4.*
   - aeson
+  - base == 4.*
   - basic-sop
   - blaze-html
+  - blaze-markup
   - bytestring
+  - containers
   - filepath
   - generics-eot
   - generics-sop
@@ -14,8 +16,10 @@ dependencies:
   - interpolate
   - lens
   - logging-facade
+  - mtl
   - QuickCheck
   - servant
+  - servant-blaze
   - servant-server
   - servant-swagger
   - string-conversions

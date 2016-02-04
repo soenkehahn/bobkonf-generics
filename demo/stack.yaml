@@ -11,6 +11,7 @@ packages:
     subdirs:
       - servant
       - servant-server
+      - servant-blaze
     extra-dep: true
 extra-deps:
   - basic-sop-0.2.0.0
