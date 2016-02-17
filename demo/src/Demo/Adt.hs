@@ -25,6 +25,6 @@ data Animal
     species :: String,
     lives :: Int
   }
-  deriving (Generic, Show)
+  deriving (Generic, Show, Eq)
 
 instance Generics.SOP.Generic SingleConstructorADT

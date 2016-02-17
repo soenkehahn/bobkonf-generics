@@ -1,5 +1,6 @@
 dependencies:
   - aeson
+  - postgresql-simple
   - base == 4.*
   - basic-sop
   - blaze-html

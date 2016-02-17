@@ -13,6 +13,7 @@ executable demo-cli
       src
   build-depends:
       aeson
+    , postgresql-simple
     , base == 4.*
     , basic-sop
     , blaze-html
@@ -51,6 +52,7 @@ executable demo-cli
       Demo.Default
       Demo.JSON
       Demo.Links
+      Demo.Schema
       Demo.Swagger
       Demo.Utils
       Run
@@ -63,6 +65,7 @@ executable demo-server
     , src
   build-depends:
       aeson
+    , postgresql-simple
     , base == 4.*
     , basic-sop
     , blaze-html
@@ -101,6 +104,7 @@ executable demo-server
       Demo.Default
       Demo.JSON
       Demo.Links
+      Demo.Schema
       Demo.Swagger
       Demo.Utils
       Run
@@ -114,6 +118,7 @@ test-suite spec
     , src
   build-depends:
       aeson
+    , postgresql-simple
     , base == 4.*
     , basic-sop
     , blaze-html
@@ -149,6 +154,7 @@ test-suite spec
       Demo.ArbitrarySpec
       Demo.DefaultSpec
       Demo.LinksSpec
+      Demo.SchemaSpec
       Demo.Adt
       Demo.AllValues
       Demo.Arbitrary
@@ -156,6 +162,7 @@ test-suite spec
       Demo.Default
       Demo.JSON
       Demo.Links
+      Demo.Schema
       Demo.Swagger
       Demo.Utils
       Run
