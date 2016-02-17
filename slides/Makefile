@@ -7,7 +7,8 @@ clean:
 	rm -rf slides.pdf slides.pdf
 
 slides.pdf: slides.lhs relations.pdf HasEot.pdf
-	pandoc slides.lhs -f markdown+lhs -o slides.pdf -s -t beamer
+	cat slides.lhs | sed -r 's/\$$ >>>/>/' | sed -r 's/>>>/>/' | \
+		pandoc - -f markdown+lhs -o slides.pdf -s -t beamer
 
 check: .cabal-sandbox
 	doctest slides.lhs

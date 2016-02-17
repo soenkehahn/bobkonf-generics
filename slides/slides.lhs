@@ -22,20 +22,21 @@ Table of Contents
 > {-# LANGUAGE DeriveGeneric #-}
 > {-# LANGUAGE FlexibleContexts #-}
 > {-# LANGUAGE InstanceSigs #-}
+> {-# LANGUAGE OverloadedStrings #-}
 > {-# LANGUAGE ScopedTypeVariables #-}
 >
 > {-# OPTIONS_GHC -fno-warn-missing-methods #-}
 >
 > module Slides where
 >
-> import Data.Aeson
-> import Data.Aeson.Encode.Pretty
+> import Data.Aeson as Aeson
+> import Data.Aeson.Encode.Pretty as Aeson.Pretty
 > import Data.String.Conversions
-> import Data.Swagger
+> import Data.Swagger as Swagger
 > import Generics.Eot
+> import qualified Data.ByteString.Lazy.Char8 as LBS
 > import Text.Show.Pretty
 > import WithCli
-> import qualified Data.ByteString.Lazy.Char8 as LBS
 
 ---
 
@@ -71,17 +72,20 @@ How to use generic functions?
 >   | Anonymous
 >   deriving (Show, Generic, ToJSON, FromJSON, ToSchema)
 >
-> -- $ >>> LBS.putStrLn $ encode $ User "paula" 3
+> -- $ >>> LBS.putStrLn $ Aeson.encode $ User "paula" 3
 > -- {"tag":"User","age":3,"name":"paula"}
 >
-> -- $ >>> let x = "{\"tag\":\"Anonymous\",\"contents\":[]}"
-> -- >>> eitherDecode (cs x) :: Either String User
+> userJson :: LBS.ByteString
+> userJson = "{\"tag\":\"Anonymous\",\"contents\":[]}"
+> -- $ >>> Aeson.eitherDecode userJson :: Either String User
 > -- Right Anonymous
 
 ---
 
-> -- $ >>> let proxy = Proxy :: Proxy User
-> -- >>> LBS.putStrLn $ encodePretty $ toSchema proxy
+> userSwaggerSchema = LBS.putStrLn $
+>   Aeson.Pretty.encodePretty $
+>   Swagger.toSchema (Proxy :: Proxy User)
+> -- $ >>> userSwaggerSchema
 > -- {
 > --     "minProperties": 1,
 > --     "maxProperties": 1,
@@ -96,22 +100,7 @@ How to use generic functions?
 > --             "properties": {
 > --                 "age": {
 > --                     "maximum": 9223372036854775807,
-> --                     "minimum": -9223372036854775808,
-> --                     "type": "integer"
-> --                 },
-> --                 "name": {
-> --                     "type": "string"
-> --                 }
-> --             }
-> --         },
-> --         "Anonymous": {
-> --             "type": "string",
-> --             "enum": [
-> --                 "Anonymous"
-> --             ]
-> --         }
-> --     }
-> -- }
+> -- ...
 
 ---
 
@@ -199,6 +188,8 @@ End-markers (`()` and `Void`) are needed to unambiguously identify fields. (todo
 `HasEot`'s method `datatype`
 ============================
 
+([haddocks for datatype](http://haddock.stackage.org/lts-5.3/generics-eot-0.2.1/Generics-Eot.html#v:datatype))
+
 > -- $ >>> datatype (Proxy :: Proxy User)
 > -- Datatype {datatypeName = "User", constructors = [Constructor {constructorName = "User", fields = Selectors ["name","age"]},Constructor {constructorName = "Anonymous", fields = NoFields}]}
 
@@ -227,7 +218,7 @@ What we want to implement:
 
 ``` haskell
 -- | returns the name of the used constructor
-getConstructorName :: a -> String
+getConstructorName :: (...) => a -> String
 ```
 
 We start by writing the generic function `eotConstructorName`:
@@ -266,6 +257,8 @@ And one for `Void` to make the compiler happy:
 
 Example: `getConstructorName`
 ==========================
+
+([haddocks for Datatype](http://haddock.stackage.org/lts-5.3/generics-eot-0.2.1/Generics-Eot.html#t:Datatype))
 
 > getConstructorName :: forall a .
 >   (HasEot a, EotConstructorName (Eot a)) =>
