@@ -138,19 +138,19 @@ data User
 Probably the shortest:
 
 ``` haskell
-Maybe (Int, String)
+Maybe (String, Int)
 ```
 
 Or:
 
 ``` haskell
-Either (Int, String) ()
+Either (String, Int) ()
 ```
 
 The one `generics-eot` uses:
 
 ``` haskell
-Either ([Char], (Int, ())) (Either () Void)
+Either (String, (Int, ())) (Either () Void)
 ```
 
 ---
@@ -298,3 +298,4 @@ Thank you!
 - [hackage.haskell.org/package/generic-deriving](http://hackage.haskell.org/package/generic-deriving)
 - [hackage.haskell.org/package/generics-sop](http://hackage.haskell.org/package/generics-sop)
 - [generics-eot.readthedocs.org/en/latest/](http://generics-eot.readthedocs.org/en/latest/)
+- These slides: [github.com/soenkehahn/bobkonf-generics](https://github.com/soenkehahn/bobkonf-generics)

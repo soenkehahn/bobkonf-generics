@@ -4,7 +4,7 @@ ack:
 	! ack-grep -H todo *.lhs
 
 clean:
-	rm -rf slides.pdf slides.pdf
+	rm -rf *.pdf
 
 slides.pdf: slides.lhs relations.pdf HasEot.pdf
 	cat slides.lhs | sed -r 's/\$$ >>>/>/' | sed -r 's/>>>/>/' | \
