@@ -8,5 +8,5 @@ digraph g {
   eotValue -> userValue [label = "fromEot"];
 
   User -> EotUser [label = "Eot"];
-  EotUser [label = "Eot User"];
+  EotUser [label = "Eot User ~ \nEither (String, (Int, ())) (Either () Void)"];
 }

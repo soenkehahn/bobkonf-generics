@@ -12,7 +12,6 @@ slides.pdf: slides.lhs relations.pdf HasEot.pdf
 
 check: .cabal-sandbox
 	doctest slides.lhs
-	doctest getopt-generics.hs
 
 .cabal-sandbox: tinc.yaml
 	tinc

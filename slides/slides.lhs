@@ -9,11 +9,10 @@ Table of Contents
 =================
 
 - Motivation
-- Disclaimer
-- How to use generic functions?
-- How to write generic functions?
+- How to use generic functions
+- How to write generic functions
 - Comparison with reflection in OOP
-- Examples
+- Possible applications of DGP
 - Conclusion
 
 ---
@@ -31,12 +30,9 @@ Table of Contents
 >
 > import Data.Aeson as Aeson
 > import Data.Aeson.Encode.Pretty as Aeson.Pretty
-> import Data.String.Conversions
 > import Data.Swagger as Swagger
 > import Generics.Eot
 > import qualified Data.ByteString.Lazy.Char8 as LBS
-> import Text.Show.Pretty
-> import WithCli
 
 ---
 
@@ -50,19 +46,17 @@ Motivation
 
 ---
 
+Generic Libraries
+=================
+
 \begin{center}
   \includegraphics[width=\textwidth]{relations.pdf}
 \end{center}
 
-Disclaimer
-----------
-
-The code in this presentation uses `generics-eot`. But I'm biased, because I wrote it. Everything is equally possible with either `generics-sop` or `GHC Generics` and probably other libraries.
-
 ---
 
-How to use generic functions?
-=============================
+How to use generic functions
+============================
 
 > data User
 >   = User {
@@ -104,19 +98,54 @@ How to use generic functions?
 
 ---
 
-How to write generic functions?
-===============================
+How to write generic functions
+==============================
+
+What we want to implement as an example:
+
+``` haskell
+-- | returns the name of the used constructor
+getConstructorName :: (...) => a -> String
+```
+
+---
 
 Three Kinds of Generic Functions
 --------------------------------
 
-- Consuming (e.g. serialization)
-- Producing (e.g. deserialization)
-- Accessing Meta Information (e.g. creating a JSON schema)
+- Accessing Meta Information
+- Consuming
+- Producing
 
 Very often, these three kinds are have to be combined.
 
 Consuming and producing relies on an **isomorphic, generic representation**.
+
+---
+
+Accessing meta information
+==========================
+
+([haddocks for datatype](http://haddock.stackage.org/lts-5.3/generics-eot-0.2.1/Generics-Eot.html#v:datatype))
+
+> -- $ >>> datatype (Proxy :: Proxy User)
+> -- Datatype {datatypeName = "User", constructors = [Constructor {constructorName = "User", fields = Selectors ["name","age"]},Constructor {constructorName = "Anonymous", fields = NoFields}]}
+
+``` haskell
+Datatype {
+  datatypeName = "User",
+  constructors = [
+    Constructor {
+      constructorName = "User",
+      fields = Selectors ["name", "age"]
+    },
+    Constructor {
+      constructorName = "Anonymous",
+      fields = NoFields
+    }
+  ]
+}
+```
 
 ---
 
@@ -181,38 +210,33 @@ Mapping to the generic representation: typeclass `HasEot`
 > -- >>> fromEot $ Right ()
 > -- Anonymous
 
-End-markers (`()` and `Void`) are needed to unambiguously identify fields. (todo?)
-
 ---
 
-`HasEot`'s method `datatype`
-============================
+End-marker for fields: `()`
+===========================
 
-([haddocks for datatype](http://haddock.stackage.org/lts-5.3/generics-eot-0.2.1/Generics-Eot.html#v:datatype))
-
-> -- $ >>> datatype (Proxy :: Proxy User)
-> -- Datatype {datatypeName = "User", constructors = [Constructor {constructorName = "User", fields = Selectors ["name","age"]},Constructor {constructorName = "Anonymous", fields = NoFields}]}
+If we omit the end-marker:
 
 ``` haskell
-Datatype {
-  datatypeName = "User",
-  constructors = [
-    Constructor {
-      constructorName = "User",
-      fields = Selectors ["name", "age"]
-    },
-    Constructor {
-      constructorName = "Anonymous",
-      fields = NoFields
-    }
-  ]
-}
+Eot User ~ Either (String, Int) (Either () Void)
+```
+
+Consider:
+
+``` haskell
+data Foo = Foo (String, Int) | Bar
+```
+
+We need:
+
+``` haskell
+Eot User ~ Either (String, (Int, ())) (Either () Void)
 ```
 
 ---
 
 Example: `getConstructorName`
-=======================================
+=============================
 
 What we want to implement:
 
@@ -229,7 +253,7 @@ We start by writing the generic function `eotConstructorName`:
 ---
 
 Example: `getConstructorName`
-==========================
+=============================
 
 Then we need instances for the different possible generic representations. One for `Either x xs`:
 
@@ -244,7 +268,7 @@ Then we need instances for the different possible generic representations. One f
 ---
 
 Example: `getConstructorName`
-==========================
+=============================
 
 And one for `Void` to make the compiler happy:
 
@@ -256,7 +280,7 @@ And one for `Void` to make the compiler happy:
 ---
 
 Example: `getConstructorName`
-==========================
+=============================
 
 ([haddocks for Datatype](http://haddock.stackage.org/lts-5.3/generics-eot-0.2.1/Generics-Eot.html#t:Datatype))
 
@@ -276,18 +300,64 @@ Example: `getConstructorName`
 
 ---
 
-DGP is a lot like reflection in object-oriented languages. There are some key differences:
+Comparison to reflection
+========================
 
-- nullable types -- libraries using reflection usually need to know, which fields are nullable
-- sumtypes/subtypes -- both pose problems for lots of use-cases, but also sometimes offer interesting possibilities
-- dynamic typing -- makes schema generation difficult
-- ducktyping -- makes it ambiguous which fields are relevant
-- type-level computations -- types of generic functions can depend on the structure of the datatype, e.g. setting default levels for a database table.
+    [...] reflection is the ability of a computer program to
+    examine [...] and modify its own structure and behavior
+    (specifically the values, meta-data, properties and
+    functions) at runtime.
+
+    (From Wikipedia)
 
 ---
 
-Demonstration
--------------
+Comparison to reflection
+========================
+
+- DGP solves very similar problems as reflection in object-oriented languages.
+- Unlike reflection, DGP happens (at least in part) at compile time and can statically ensure certain properties of used ADTs, e.g.:
+
+    - Every field is mappable to a database type
+    - The ADT has exactly one constructor
+
+---
+
+Comparison to reflection
+========================
+
+- nullable types -- libraries using reflection usually need to know, which fields are nullable
+- sumtypes/subtypes -- both pose problems for lots of use-cases, but also sometimes offer interesting possibilities
+- dynamic typing -- makes e.g. schema generation difficult
+- type-level computations -- types of generic functions can depend on the structure of the datatype, e.g. setting default levels for a database table.
+
+
+Possible applications of DGP
+============================
+
+- binary serialization (consuming)
+- serialization to JSON (consuming & meta information)
+- generating default values (producing)
+- generating arbitrary test data (producing)
+- database schema generation (meta information)
+- database inserts (consuming & meta information)
+- command line interfaces (producing & meta information)
+- traversals (consuming & producing)
+- html forms (producing & meta information)
+- parsing configuration files (producing & meta information)
+- routing HTTP requests (consuming & meta information)
+- etc...
+
+---
+
+Conclusion
+----------
+
+- I think of DGP as reflection for Haskell
+- DGP supports serialization and deserialization very maturely
+- DGP has many other possible applications, lots of them unexplored
+- DGP is not **that** complicated and fun!
+- Conclusion: You should all go and write generic libraries!
 
 ---
 
